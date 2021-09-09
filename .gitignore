@@ -1,0 +1,8 @@
+.metadata
+.settings/
+.vscode/
+__pycache__/
+
+.cproject
+.project
+*.exe
