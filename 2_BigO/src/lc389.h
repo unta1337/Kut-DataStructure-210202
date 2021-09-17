@@ -9,17 +9,19 @@
 // Memory Usage: 6.7 MB (66.79 %)
 // https://leetcode.com/submissions/detail/551563014/
 
+// 2020136018 김성녕
+
 #ifndef _LC_389_H
 #define _LC_389_H
 
 namespace Solution389 {
     char findTheDifference(std::string s, std::string t) {
         // 소문자 알파벳이 등장한 횟수를 기록할 두 개의 배열 선언.
-        short s_char[26] = { 0, };
-        short t_char[26] = { 0, };
+        int s_char[26] = { 0, };
+        int t_char[26] = { 0, };
         
         // s와 t중 s의 길이만큼 반복하여 NullPointerExceptio을 방지.
-        for (int i = 0; i < s.length(); i++) {
+        for (size_t i = 0; i < s.length(); i++) {
             s_char[s[i] - 'a']++;
             t_char[t[i] - 'a']++;
         } t_char[t[t.length() - 1] - 'a']++;    // t의 마지막 원소에 대한 처리를 수행.

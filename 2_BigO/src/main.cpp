@@ -1,3 +1,5 @@
+// 2020136018 김성녕
+
 #include <iostream>
 
 #include "lc389.h"

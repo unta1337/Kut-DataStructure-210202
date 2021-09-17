@@ -9,6 +9,8 @@
 // Memory Useage: 6.1 MB (96.70 %)
 // https://leetcode.com/submissions/detail/551589720/
 
+// 2020136018 김성녕
+
 #ifndef _LC_771_H
 #define _LC_771_H
 
@@ -16,12 +18,12 @@ namespace Solution771 {
     int numJewelsInStones(std::string jewels, std::string stones) {
         // 알바벳 대문자와 소문자의 등장 횟수를 기록할 배열 선언 및 등장 횟수 계산.
         bool j[58] = { 0, };
-        for (int i = 0; i < jewels.length(); i++)
+        for (size_t i = 0; i < jewels.length(); i++)
             j[jewels[i] - 'A'] = true;
         
         // 입력으로 들어온 stone을 탐색하면서 해당 알파벳이 jewels에 있으면 카운트 증가.
         int count = 0;
-        for (int i = 0; i < stones.length(); i++)
+        for (size_t i = 0; i < stones.length(); i++)
             count += j[stones[i] - 'A'];
         
         return count;
