@@ -5,6 +5,8 @@
 # 용량 고정, 중복 허용, 배열을 이용한 비정렬 정수 리스트
 # 순서를 유지하는 방법으로 pushFront, popFront, remove를 구현함
 
+# 2020136018 김성녕
+
 class UnsortedList:
 	
 	def __init__(self, initList: list=[]):
@@ -29,9 +31,11 @@ class UnsortedList:
 
 	def clear(self) -> None:
 		# 구현필요
+		pass
 
 	def pushback(self, item: int) -> None:
 		# 구현필요
+		pass
 
 	def popback(self) -> int:
 		# 구현필요
@@ -39,6 +43,7 @@ class UnsortedList:
 
 	def pushfront(self, item: int) -> None:
 		# 구현필요 
+		pass
 
 	def popfront(self) -> int: 
 		# 구현필요
@@ -58,9 +63,11 @@ class UnsortedList:
 
 	def removeFirst(self, item: int) -> None:
 		# 구현필요
+		pass
 	
 	def removeAll(self, item: int) -> None:
 		# 구현필요
+		pass
 
 	def __iter__(self):
 		self.it = 0
