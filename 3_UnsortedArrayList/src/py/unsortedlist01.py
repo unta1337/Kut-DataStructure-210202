@@ -8,66 +8,112 @@
 # 2020136018 김성녕
 
 class UnsortedList:
-	
-	def __init__(self, initList: list=[]):
+	def __init__(self, initList: list = []):
 		self.capacity = 10
-		if len(initList)==0:
+
+		if len(initList) == 0:
 			self.numItems = 0
-			self.items = [0]*self.capacity
-		elif len(initList)<self.capacity:
+			self.items = [0] * self.capacity
+		elif len(initList) < self.capacity:
 			self.numItems = len(initList)
-			self.items = initList + [0]*(self.capacity-len(initList))
+			self.items = initList + [0] * (self.capacity - len(initList))
 		else:
 			self.numItems = 10
 			self.items = initList[:10]
 
-	def __len__(self):
-		# 구현필요
-		return 0
+	# 내부적으로만 사용될 메소드이므로 private으로 선언.
+	def __debugPrint(self) -> None:
+		for e in self.items:
+			print(e, end = ' ')
+		print()
+
+	def isEmpty(self) -> bool:
+		return self.numItems == 0
 
 	def isFull(self) -> bool:
-		# 구현필요
-		return False
+		return self.numItems >= self.capacity
+
+	def pushValidCheck(self) -> None:
+		if self.isFull():
+			raise RuntimeError('리스트 인덱스 범위 예외: 리스트에 있는 원소의 개수가 최대입니다.')
+
+	def popValidCheck(self) -> None:
+		if self.isEmpty():
+			raise RuntimeError('리스트 인덱스 참조 예외: 리스트에 참조할 수 있는 원소가 없습니다.')
+
+	def refValidCheck(self, index: int) -> None:
+		if not 0 <= index < numItems:
+			raise RuntimeError('리스트 인덱스 참조 예외: 참조할 수 있는 인덱스의 범위를 벗어났습니다.')
+
+	def __len__(self) -> int:
+		return self.numItems
 
 	def clear(self) -> None:
-		# 구현필요
-		pass
+		self.numItems = 0
 
 	def pushback(self, item: int) -> None:
-		# 구현필요
-		pass
+		self.pushValidCheck()
+
+		self.items[self.numItems] = item
+		self.numItems += 1
 
 	def popback(self) -> int:
-		# 구현필요
-		return 0
+		self.popValidCheck()
+
+		temp: int = self.items[self.numItems - 1]
+		self.numItems -= 1
+		return temp
 
 	def pushfront(self, item: int) -> None:
-		# 구현필요 
-		pass
+		self.pushValidCheck()
+
+		temp: list = self.items.copy()
+		self.items[0] = item
+		self.items[1:] = temp
+
+		self.numItems += 1
 
 	def popfront(self) -> int: 
-		# 구현필요
-		return 0
+		self.popValidCheck()
+
+		temp: int = self.items[0]
+		self.items = self.items[1:]
+
+		self.numItems -= 1
+
+		return temp
 
 	def peekback(self) -> int:
-		# 구현필요
-		return 0
+		self.popValidCheck()
+
+		return self.items[self.numItems - 1]
 
 	def peekfront(self) -> int:
-		# 구현필요
-		return 0
+		self.popValidCheck()
+
+		return self.items[0]
 
 	def __contains__(self, item: int) -> bool:
-		# 구현필요
+		for e in self.items:
+			if e == item:
+				return True
+
 		return False
 
+	def _remove(self, index: int) -> None:
+		temp: list = self.items[index + 1:].copy()
+		self.items[index:] = temp
+
+		self.numItems -= 1
+
 	def removeFirst(self, item: int) -> None:
-		# 구현필요
-		pass
+		for i in range(self.numItems):
+			if self.items[i] == item:
+				return self._remove(i)
 	
 	def removeAll(self, item: int) -> None:
-		# 구현필요
-		pass
+		while item in self.items:
+			self.removeFirst(item)
 
 	def __iter__(self):
 		self.it = 0
