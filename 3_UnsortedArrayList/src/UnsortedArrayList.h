@@ -81,7 +81,6 @@ public:
 		std::cout << "}\n";
 	}
 
-
 	bool isEmpty() const noexcept {
 		return numItems == 0;
 	}
