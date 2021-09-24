@@ -46,6 +46,17 @@ private:
 	int items[MAX];
 	size_t numItems{0};			// 이 변수는 배열의 크기 또는 리스트의 크기를 나타내는 변수이지만, 동시에 push 명령이 들어왔을 때 원소를 넣을 인덱스로서도 활용할 수 있음.
 
+	// remove 함수들의 코드 중복을 막기 위한 함수.
+	// 내부적으로만 사용되는 메소드로 private로 선언.
+	// 내부적으로 유효한 인덱스만 받도록 설계되므로 noexcept로 함수 선언.
+	void remove(int index) noexcept {
+		for (size_t i = index; i < numItems - 1; i++) {
+			items[i] = items[i + 1];
+		}
+
+		numItems--;
+	}
+
 public:
 	explicit UnsortedArrayList() = default;
 
@@ -53,7 +64,7 @@ public:
 		// std::min 대신 삼항 연산자를 사용함으로써 함수 호출 시간을 단축함.
 		numItems = initList.size() < MAX ? initList.size() : MAX;
 
-		auto it{initList.begin()};
+		UnsortedArrayList::ListIterator it{initList.begin()};
 		for (size_t i = 0; i < numItems; i++) {
 			items[i] = *it;
 			it++;
@@ -183,16 +194,6 @@ public:
 		numItems++;
 	}
 
-	// remove 함수들의 코드 중복을 막기 위한 함수.
-	// 내부적으로 유효한 인덱스만 받도록 설계되므로 noexcept로 함수 선언.
-	void remove(int index) noexcept {
-		for (size_t i = index; i < numItems - 1; i++) {
-			items[i] = items[i + 1];
-		}
-
-		numItems--;
-	}
-
 	bool find(int item) const noexcept {
 		if (isEmpty())
 			return false;
@@ -210,7 +211,7 @@ public:
 	void removeFirst(int item) noexcept {
 		for (size_t i = 0; i < numItems; i++) {
 			if (items[i] == item)
-				remove(i);
+				return remove(i);
 		}
 	}
 
