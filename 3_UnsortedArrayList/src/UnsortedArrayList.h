@@ -64,7 +64,7 @@ public:
 		// std::min 대신 삼항 연산자를 사용함으로써 함수 호출 시간을 단축함.
 		numItems = initList.size() < MAX ? initList.size() : MAX;
 
-		UnsortedArrayList::ListIterator it{initList.begin()};
+		std::initializer_list<int>::iterator it{initList.begin()};
 		for (size_t i = 0; i < numItems; i++) {
 			items[i] = *it;
 			it++;
