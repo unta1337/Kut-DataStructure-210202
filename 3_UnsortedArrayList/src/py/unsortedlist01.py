@@ -27,6 +27,14 @@ class UnsortedList:
 			print(e, end = ' ')
 		print()
 
+	# 내부적으로만 사용될 메소드이므로 private로 선언.
+	# 내부적으로 올바른 인덱스가 인수로 들어오므로 예외 처리를 할 필요가 없음.
+	def __remove(self, index: int) -> None:
+		temp: list = self.items[index + 1:].copy()
+		self.items[index:] = temp
+
+		self.numItems -= 1
+
 	def isEmpty(self) -> bool:
 		return self.numItems == 0
 
@@ -100,16 +108,10 @@ class UnsortedList:
 
 		return False
 
-	def _remove(self, index: int) -> None:
-		temp: list = self.items[index + 1:].copy()
-		self.items[index:] = temp
-
-		self.numItems -= 1
-
 	def removeFirst(self, item: int) -> None:
 		for i in range(self.numItems):
 			if self.items[i] == item:
-				return self._remove(i)
+				return self.__remove(i)
 	
 	def removeAll(self, item: int) -> None:
 		while item in self.items:
