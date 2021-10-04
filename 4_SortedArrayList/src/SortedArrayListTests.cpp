@@ -199,17 +199,17 @@ TEST(SortedArrayList_Duplicate, Big5)
 	SortedArrayList list2{6,7,8,9,10};
 	SortedArrayList list3;
 	SortedArrayList list4(list2);
-//	// copy constructor test
-//	for(size_t i=0; i<list2.size(); i++)
-//		ASSERT_EQ(list2[i], list4[i]);
+	// copy constructor test
+	for(size_t i=0; i<list2.size(); i++)
+		ASSERT_EQ(list2[i], list4[i]);
 	list3 = list1;
 	// copy assignment test
 	for(size_t i=0; i<list1.size(); i++)
 		ASSERT_EQ(list1[i], list3[i]);
-//	// move constructor test
-//	SortedArrayList list5(std::move(list3));
-//	for(size_t i=0; i<list5.size(); i++)
-//		ASSERT_EQ(list5[i], list1[i]);
+	// move constructor test
+	SortedArrayList list5(std::move(list3));
+	for(size_t i=0; i<list5.size(); i++)
+		ASSERT_EQ(list5[i], list1[i]);
 	// move assignment test
 	list3 = std::move(list4);
 	for(size_t i=0; i<list3.size(); i++)

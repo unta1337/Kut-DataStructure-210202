@@ -92,34 +92,42 @@ public:
 		}
 	}
 
+	// 사용된 동적 배열을 반환하기 위한 소멸자 정의.
 	virtual ~SortedArrayList(){
 		free(items);
 	}
 
- 	SortedArrayList(const SortedArrayList& sal){
-		currentCapacity = sal.currentCapacity;
-		numItems = sal.numItems;
-		items = sal.items;
+	// 소멸자를 정의함으로써 기존의 빅 5가 기본 제공되지 않음.
+	// 빅 5가 기본 제공되지 않으므로 새로 정의.
+ 	SortedArrayList(const SortedArrayList& src) {
+		currentCapacity = src.currentCapacity;
+		numItems = src.numItems;
+		items = (int*)malloc(currentCapacity);
+
+		for (size_t i = 0; i < currentCapacity; i++)
+			items[i] = src.items[i];
  	}
 
-	SortedArrayList(SortedArrayList&& sal){
-		currentCapacity = sal.currentCapacity;
-		numItems = sal.numItems;
-		items = sal.items;
-	}
+	SortedArrayList(SortedArrayList&& src) :
+		currentCapacity{std::exchange(src.currentCapacity, 0)},
+		numItems{std::exchange(src.numItems, 0)},
+		items{std::exchange(src.items, nullptr)} { }
 
-	const SortedArrayList& operator=(const SortedArrayList& sal){
-		currentCapacity = sal.currentCapacity;
-		numItems = sal.numItems;
-		items = sal.items;
+	SortedArrayList& operator=(const SortedArrayList& rhs) {
+		currentCapacity = rhs.currentCapacity;
+		numItems = rhs.numItems;
+		items = (int*)malloc(currentCapacity);
+
+		for (size_t i = 0; i < currentCapacity; i++)
+			items[i] = rhs.items[i];
 
 		return *this;
 	}
 
-	const SortedArrayList& operator=(SortedArrayList&& sal){
-		currentCapacity = sal.currentCapacity;
-		numItems = sal.numItems;
-		items = sal.items;
+	SortedArrayList& operator=(SortedArrayList&& rhs) {
+		currentCapacity = std::exchange(rhs.currentCapacity, 0);
+		numItems = std::exchange(rhs.numItems, 0);
+		items = std::exchange(rhs.items, nullptr);
 
 		return *this;
 	}
