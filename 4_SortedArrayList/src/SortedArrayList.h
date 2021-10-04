@@ -18,6 +18,8 @@
 #include <initializer_list>
 #include <cstdlib>
 
+#include <iostream>
+
 class SortedArrayList {
 	template <typename U>
 	class ListIterator: public std::iterator<std::input_iterator_tag,U>{
@@ -33,10 +35,12 @@ class SortedArrayList {
 private:
 	// 검사 목적으로 용량을 작게 설정
 	const static inline size_t MAX{10};
-	//int items[MAX];
 	size_t currentCapacity{1};
 	size_t numItems{0};
 	int* items = (int*)malloc(currentCapacity);
+
+	// 기존의 정적 배열을 사용하지 않음.
+	//int items[MAX];
 
 	void shiftLeft(size_t startIdx){
 		for(size_t i{startIdx}; i<numItems-1; ++i)
@@ -72,14 +76,6 @@ private:
 			return;
 
 		currentCapacity = currentCapacity * 2 > MAX ? MAX : currentCapacity * 2;
-		items = (int*)realloc(items, currentCapacity * sizeof(int));
-	}
-
-	void increaseCapacity(int cap) {
-		if (!shouldExpand())
-			return;
-
-		currentCapacity = currentCapacity + cap > MAX ? MAX : currentCapacity + cap;
 		items = (int*)realloc(items, currentCapacity * sizeof(int));
 	}
 public:
@@ -201,6 +197,27 @@ public:
 	bool find(int item) const noexcept{
 		if(isEmpty()) return false;
 		return items[search(item)]==item;
+	}
+
+	// 코드 중복을 막기 위한 함수.
+	void remove(int index) {
+		if (!(0 <= index && index < numItems))
+			throw std::out_of_range("Index out of range");
+		shiftLeft(index);
+	}
+
+	// removeRange 함수 추가.
+	void removeRange(int first, int last) {
+		bool condition1 = (0 <= first) && (first < numItems);
+		bool condition2 = (0 <= (last - 1)) && ((last - 1) < numItems);
+
+		if (!(condition1 && condition2))
+			throw std::out_of_range("Index out of range");
+
+		int iteration = last - first;
+
+		for (int i = first; i < first + iteration; i++)
+			remove(first);
 	}
 
 	void removeFirst(int item) noexcept{

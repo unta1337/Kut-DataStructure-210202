@@ -215,3 +215,15 @@ TEST(SortedArrayList_Duplicate, Big5)
 	for(size_t i=0; i<list3.size(); i++)
 		ASSERT_EQ(list3[i], list2[i]);
 }
+
+// removeRange()를 위한 테스트 함수.
+TEST(SortedArrayList_Duplicate, removeRangeTest) {
+	SortedArrayList list1{0, 1, 2, 3, 4, 5};
+	ASSERT_THROW(list1.removeRange(-1, 6), std::out_of_range);
+	ASSERT_THROW(list1.removeRange(0, 7), std::out_of_range);
+	list1.removeRange(2, 4);
+	std::string output = "";
+	for(auto i: list1)
+		output += std::to_string(i)+",";
+	ASSERT_EQ(output,"0,1,4,5,");
+}
