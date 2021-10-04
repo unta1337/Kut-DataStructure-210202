@@ -16,9 +16,6 @@
 #include <stdexcept>
 #include <iterator>
 #include <initializer_list>
-#include <cstdlib>
-
-#include <iostream>
 
 class SortedArrayList {
 	template <typename U>
@@ -34,10 +31,10 @@ class SortedArrayList {
     };
 private:
 	// 검사 목적으로 용량을 작게 설정
-	const static inline size_t MAX{10};
+	const static inline size_t MAX{10};				// 용량을 계속 확장할 수 있으므로 사실상 의미가 없음.
 	size_t currentCapacity{1};
 	size_t numItems{0};
-	int* items = (int*)malloc(currentCapacity);
+	int* items = new int[currentCapacity];
 
 	// 기존의 정적 배열을 사용하지 않음.
 	//int items[MAX];
@@ -66,23 +63,38 @@ private:
 
 	// 내부적으로만 사용되는 메소드이므로 private 선언.
 
-	// isFull()과는 별개로, 배열이 확장 가능할 때(용량이 MAX를 넘어서지 않음) 용량을 확장해야할지 판단하는 함수.
+	// 용량을 확장해야할지 판단하는 함수.
 	bool shouldExpand() noexcept {
-		return numItems==currentCapacity && !isFull();
+		return numItems==currentCapacity;
 	}
 
 	void increaseCapacity() {
 		if (!shouldExpand())
 			return;
 
-		currentCapacity = currentCapacity * 2 > MAX ? MAX : currentCapacity * 2;
-		items = (int*)realloc(items, currentCapacity * sizeof(int));
+		// 확장 가능한 최대 용량을 한정하고 싶을 때 사용.
+		//currentCapacity = currentCapacity * 2 > MAX ? MAX : currentCapacity * 2;
+
+		int* temp = new int[currentCapacity];
+		for (size_t i = 0; i < currentCapacity; i++)
+			temp[i] = items[i];
+
+		currentCapacity *= 2;
+
+		delete[] items;
+		items = new int[currentCapacity];
+
+		for (size_t i = 0; i < currentCapacity / 2; i++)
+			items[i] = temp[i];
+
+		delete[] temp;
 	}
 public:
 	explicit SortedArrayList() = default;
 	explicit SortedArrayList(const std::initializer_list<int>& initList){
 		auto it{initList.begin()};
-		for(size_t i{0}; i<std::min(initList.size(),MAX); ++i){
+		// 용량을 계속 확장 가능하므로 MAX를 고려하지 않아도 됨.
+		for(size_t i{0}; i<initList.size(); ++i){
 			add(*it);
 			++it;
 		}
@@ -90,7 +102,7 @@ public:
 
 	// 사용된 동적 배열을 반환하기 위한 소멸자 정의.
 	virtual ~SortedArrayList(){
-		free(items);
+		delete[] items;
 	}
 
 	// 소멸자를 정의함으로써 기존의 빅 5가 기본 제공되지 않음.
@@ -98,7 +110,7 @@ public:
  	SortedArrayList(const SortedArrayList& src) {
 		currentCapacity = src.currentCapacity;
 		numItems = src.numItems;
-		items = (int*)malloc(currentCapacity);
+		items = new int[currentCapacity];
 
 		for (size_t i = 0; i < currentCapacity; i++)
 			items[i] = src.items[i];
@@ -112,7 +124,7 @@ public:
 	SortedArrayList& operator=(const SortedArrayList& rhs) {
 		currentCapacity = rhs.currentCapacity;
 		numItems = rhs.numItems;
-		items = (int*)malloc(currentCapacity);
+		items = new int[currentCapacity];
 
 		for (size_t i = 0; i < currentCapacity; i++)
 			items[i] = rhs.items[i];
@@ -132,6 +144,7 @@ public:
 		return numItems==0;
 	}
 
+	// 용량을 계속 확장하므로 사실상 의미가 없음.
 	bool isFull() noexcept {
 		return numItems==MAX;
 	}
@@ -168,7 +181,8 @@ public:
 	}
 
 	void add(int item){
-		if(isFull()) throw std::runtime_error("add: full state");
+		// 용량 확장이 가능하므로 필요하지 않음.
+		//if(isFull()) throw std::runtime_error("add: full state");
 
 		// 확장이 필요하면 확장 수행.
 		if(shouldExpand()) increaseCapacity();

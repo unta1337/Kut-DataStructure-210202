@@ -83,7 +83,7 @@ TEST(SortedArrayList_Duplicate, listInitializationTest)
 	output = "";
 	while(!list2.isEmpty())
 		output += std::to_string(list2.popFront())+",";
-	ASSERT_EQ(output,"1,2,3,4,5,6,7,8,9,11,");
+	ASSERT_EQ(output,"1,2,3,4,5,6,7,8,9,10,11,");			// 용량이 계속 확장 가능하므로 모든 원소를 담을 수 있음.
 }
 
 TEST(SortedArrayList_Duplicate, findTest){
