@@ -227,3 +227,18 @@ TEST(SortedArrayList_Duplicate, removeRangeTest) {
 		output += std::to_string(i)+",";
 	ASSERT_EQ(output,"0,1,4,5,");
 }
+
+// 용량 확장을 위한 테스트 함수.
+TEST(SortedArrayList_Duplicate, expandCapacityTest) {
+	std::string correct = "";
+	for (int i = 0; i < 50; i++)
+		correct += std::to_string(i)+",";
+
+	SortedArrayList list{};
+	for (int i = 0; i < 50; i++)
+		list.add(i);
+	std::string output = "";
+	for(auto i: list)
+		output += std::to_string(i)+",";
+	ASSERT_EQ(output,correct);
+}
