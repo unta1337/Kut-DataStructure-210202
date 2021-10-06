@@ -239,6 +239,8 @@ public:
 		newNode->next = head;
 
 		head = newNode;
+		if (tail == nullptr)
+			tail = head;
 
 		numItems++;
 	}
@@ -248,11 +250,12 @@ public:
 
 		int ret = head->item;
 
-		Node* deleteNode = head;
-		head = head->next;
-		delete deleteNode;
+		tail = head == tail ? nullptr : tail;
+		Node* next = tail == nullptr ? nullptr : head->next;
 
-		numItems--;
+		Node dummy{-1, head};
+		removeNode(&dummy, head);
+		head = next;
 
 		return ret;
 	}
@@ -269,21 +272,46 @@ public:
 		return tail->item;
 	}
 
-	bool find(int item) const noexcept{
-		if(isEmpty()) return false;
-		Node *curr{head};
-		while(curr){
-			if(curr->item==item) return true;
-			curr = curr->next;
+	Node* find(int item) const noexcept{
+		if(isEmpty())
+			return nullptr;
+
+		Node dummy{-1, head};
+		Node* prev = &dummy;
+		Node* current = head;
+
+		while (current) {
+			if (current->item == item)
+				return prev;
+
+			prev = current;
+			current = current->next;
 		}
-		return false;
+
+		return nullptr;
 	}
 
 	void removeFirst(int item) noexcept{
+		if (isEmpty())
+			return;
+
+		Node dummy{-1, head};
+		Node* prev = &dummy;
+		Node* current = prev->next;
+
+		while (current && current->item == item) {
+			prev = current;
+			current = current->next;
+		}
+
+		if (current) {
+			removeNode(prev, current);
+		}
 	}
 
 	void removeAll(int item) noexcept{
-		if(isEmpty()) return;
+		if(isEmpty())
+			return;
 
 		while (!find(item))
 			removeFirst(item);

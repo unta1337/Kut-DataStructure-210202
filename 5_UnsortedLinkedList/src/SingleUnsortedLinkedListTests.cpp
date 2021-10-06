@@ -14,6 +14,19 @@
 
 TEST(temp, temp)
 {
+//	SingleUnsortedLinkedList list{};
+//	list.pushFront(3);
+//	list.pushFront(5);
+//	list.pushFront(7);
+//	list.pushFront(3);
+//	list.pushFront(7);
+//	while (!list.isEmpty()) {
+//		list.print();
+//		list.popFront();
+//		//printf("%d ", list.popFront());
+//	}
+//	printf("%d\n");
+//	list.print();
 }
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTest)
@@ -71,27 +84,26 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushAndPopFrontTest)
 	ASSERT_EQ(output,"7,3,7,5,3,");
 }
 
-//TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushPopBackFrontTest)
-//{
-//	printf("hi1\n");
-//	SingleUnsortedLinkedList list;
-//	list.pushFront(3);
-//	ASSERT_EQ(list.peekFront(), 3);
-//	ASSERT_EQ(list.peekBack(), 3);
-//	list.pushFront(5);
-//	list.pushFront(7);
-//	ASSERT_EQ(list.peekFront(), 7);
-//	ASSERT_EQ(list.peekBack(), 3);
-//	list.pushBack(1);
-//	list.pushBack(2); // 7 5 3 1 2
-//	ASSERT_EQ(list.peekFront(), 7);
-//	ASSERT_EQ(list.peekBack(), 2);
-//	ASSERT_EQ(list.size(),5);
-//	std::string output = "";
-//	while(!list.isEmpty())
-//		output += std::to_string(list.popFront())+",";
-//	ASSERT_EQ(output,"7,5,3,1,2,");
-//}
+TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushPopBackFrontTest)
+{
+	SingleUnsortedLinkedList list;
+	list.pushFront(3);
+	ASSERT_EQ(list.peekFront(), 3);
+	ASSERT_EQ(list.peekBack(), 3);
+	list.pushFront(5);
+	list.pushFront(7);
+	ASSERT_EQ(list.peekFront(), 7);
+	ASSERT_EQ(list.peekBack(), 3);
+	list.pushBack(1);
+	list.pushBack(2); // 7 5 3 1 2
+	ASSERT_EQ(list.peekFront(), 7);
+	ASSERT_EQ(list.peekBack(), 2);
+	ASSERT_EQ(list.size(),5);
+	std::string output = "";
+	while(!list.isEmpty())
+		output += std::to_string(list.popFront())+",";
+	ASSERT_EQ(output,"7,5,3,1,2,");
+}
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listInitializationTest)
 {
@@ -140,32 +152,32 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeFirstTest){
 	ASSERT_TRUE(list.isEmpty());
 }
 
-TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeAllTest){
-	SingleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
-	list.removeAll(3);
-	ASSERT_EQ(list.size(),8);
-	std::string output = "";
-	for(auto i: list)
-		output += std::to_string(i)+",";
-	ASSERT_EQ(output,"1,1,1,4,5,4,4,6,");
-	list.removeAll(1);
-	ASSERT_EQ(list.size(),5);
-	output = "";
-	for(auto i: list)
-		output += std::to_string(i)+",";
-	ASSERT_EQ(output,"4,5,4,4,6,");
-	list.removeFirst(5);
-	ASSERT_EQ(list.size(),4);
-	list.removeAll(4);
-	ASSERT_EQ(list.size(),1);
-	ASSERT_EQ(6,list.popFront());
-	ASSERT_TRUE(list.isEmpty());
-	list.pushBack(3);
-	list.pushFront(3);
-	list.pushFront(3);
-	list.removeAll(3);
-	ASSERT_TRUE(list.isEmpty());
-}
+//TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeAllTest){
+//	SingleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
+//	list.removeAll(3);
+//	ASSERT_EQ(list.size(),8);
+//	std::string output = "";
+//	for(auto i: list)
+//		output += std::to_string(i)+",";
+//	ASSERT_EQ(output,"1,1,1,4,5,4,4,6,");
+//	list.removeAll(1);
+//	ASSERT_EQ(list.size(),5);
+//	output = "";
+//	for(auto i: list)
+//		output += std::to_string(i)+",";
+//	ASSERT_EQ(output,"4,5,4,4,6,");
+//	list.removeFirst(5);
+//	ASSERT_EQ(list.size(),4);
+//	list.removeAll(4);
+//	ASSERT_EQ(list.size(),1);
+//	ASSERT_EQ(6,list.popFront());
+//	ASSERT_TRUE(list.isEmpty());
+//	list.pushBack(3);
+//	list.pushFront(3);
+//	list.pushFront(3);
+//	list.removeAll(3);
+//	ASSERT_TRUE(list.isEmpty());
+//}
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, iteratorTest){
 	SingleUnsortedLinkedList list;
