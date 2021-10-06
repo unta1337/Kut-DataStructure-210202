@@ -16,8 +16,6 @@
 #include <iterator>
 #include <initializer_list>
 
-#include <iostream>
-
 class SingleUnsortedLinkedList {
 private:
 	struct Node {
@@ -326,7 +324,7 @@ public:
 		if(isEmpty())
 			return;
 
-		while (!find(item))
+		while (find(item))
 			removeFirst(item);
 	}
 

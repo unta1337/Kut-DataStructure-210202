@@ -10,11 +10,6 @@
 #include "gtest/gtest.h"
 
 #include "SingleUnsortedLinkedList.h"
-#include <iostream>
-
-TEST(temp, temp)
-{
-}
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTest)
 {
@@ -27,12 +22,9 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTe
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushAndPopBackTest)
 {
-	printf("push test\n");
 	SingleUnsortedLinkedList list;
 	list.pushBack(3);
-	list.print();
 	list.pushBack(5);
-	list.print();
 	list.pushBack(7);
 	list.pushBack(3);
 	ASSERT_EQ(list.size(),4);
@@ -130,53 +122,44 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeFirstTest){
 	list.pushBack(7);
 	list.removeFirst(3);
 	ASSERT_EQ(list.size(),2);
-	list.print();
 	list.removeFirst(7);
-	printf("hello\n");
-	list.print();
 	ASSERT_EQ(list.size(),1);
 	ASSERT_EQ(5,list.popFront());
 	ASSERT_TRUE(list.isEmpty());
-	list.print();
 	list.pushFront(3);
-	list.print();
 	list.pushBack(5);
 	ASSERT_EQ(list.size(),2);
-	list.print();
 	list.removeFirst(5);
-	list.print();
 	list.removeFirst(3);
-	list.print();
 	ASSERT_TRUE(list.isEmpty());
-	list.print();
 }
 
-//TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeAllTest){
-//	SingleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
-//	list.removeAll(3);
-//	ASSERT_EQ(list.size(),8);
-//	std::string output = "";
-//	for(auto i: list)
-//		output += std::to_string(i)+",";
-//	ASSERT_EQ(output,"1,1,1,4,5,4,4,6,");
-//	list.removeAll(1);
-//	ASSERT_EQ(list.size(),5);
-//	output = "";
-//	for(auto i: list)
-//		output += std::to_string(i)+",";
-//	ASSERT_EQ(output,"4,5,4,4,6,");
-//	list.removeFirst(5);
-//	ASSERT_EQ(list.size(),4);
-//	list.removeAll(4);
-//	ASSERT_EQ(list.size(),1);
-//	ASSERT_EQ(6,list.popFront());
-//	ASSERT_TRUE(list.isEmpty());
-//	list.pushBack(3);
-//	list.pushFront(3);
-//	list.pushFront(3);
-//	list.removeAll(3);
-//	ASSERT_TRUE(list.isEmpty());
-//}
+TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, removeAllTest){
+	SingleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
+	list.removeAll(3);
+	ASSERT_EQ(list.size(),8);
+	std::string output = "";
+	for(auto i: list)
+		output += std::to_string(i)+",";
+	ASSERT_EQ(output,"1,1,1,4,5,4,4,6,");
+	list.removeAll(1);
+	ASSERT_EQ(list.size(),5);
+	output = "";
+	for(auto i: list)
+		output += std::to_string(i)+",";
+	ASSERT_EQ(output,"4,5,4,4,6,");
+	list.removeFirst(5);
+	ASSERT_EQ(list.size(),4);
+	list.removeAll(4);
+	ASSERT_EQ(list.size(),1);
+	ASSERT_EQ(6,list.popFront());
+	ASSERT_TRUE(list.isEmpty());
+	list.pushBack(3);
+	list.pushFront(3);
+	list.pushFront(3);
+	list.removeAll(3);
+	ASSERT_TRUE(list.isEmpty());
+}
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, iteratorTest){
 	SingleUnsortedLinkedList list;

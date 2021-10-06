@@ -8,8 +8,8 @@
  * head만 유지, dummy 노드 사용, 코드 중복 제거
  */
 
-#ifndef SINGLEUNSORTEDLINKEDLIST_H_
-#define SINGLEUNSORTEDLINKEDLIST_H_
+#ifndef ORIGINAL_SINGLEUNSORTEDLINKEDLIST_H_
+#define ORIGINAL_SINGLEUNSORTEDLINKEDLIST_H_
 #include <cstddef>
 #include <algorithm>
 #include <stdexcept>
