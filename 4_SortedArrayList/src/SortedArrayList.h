@@ -163,7 +163,7 @@ public:
 	}
 
 	int operator[](int index) const{
-		if(index>=0&&index<numItems) return items[index];
+		if(index>=0&&index<(int)numItems) return items[index];
 		else throw std::out_of_range("Index ERROR: [] const");
 	}
 
@@ -215,15 +215,15 @@ public:
 
 	// 코드 중복을 막기 위한 함수.
 	void remove(int index) {
-		if (!(0 <= index && index < numItems))
+		if (!(0 <= index && index < (int)numItems))
 			throw std::out_of_range("Index out of range");
 		shiftLeft(index);
 	}
 
 	// removeRange 함수 추가.
 	void removeRange(int first, int last) {
-		bool condition1 = (0 <= first) && (first < numItems);
-		bool condition2 = (0 <= (last - 1)) && ((last - 1) < numItems);
+		bool condition1 = (0 <= first) && (first < (int)numItems);
+		bool condition2 = (0 <= (last - 1)) && ((last - 1) < (int)numItems);
 
 		if (!(condition1 && condition2))
 			throw std::out_of_range("Index out of range");

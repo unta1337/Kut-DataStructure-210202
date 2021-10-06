@@ -150,7 +150,7 @@ public:
 
 	void print() {
 		printf("DEBUGGING PRINT\n");
-		printf("numItems: %d\n", numItems);
+		printf("numItems: %d\n", (int)numItems);
 		printf("head: %p\n", head);
 		printf("tail: %p\n", tail);
 		printf("list: ");
@@ -188,12 +188,12 @@ public:
 	}
 
 	int operator[](int index) const{
-		if(index>=0&&index<numItems) return getItem(index);
+		if(index>=0&&index<(int)numItems) return getItem(index);
 		else throw std::out_of_range("Index ERROR: [] const");
 	}
 
 	int& operator[](int index){
-		if(index>=0&&index<numItems) return getItem(index);
+		if(index>=0&&index<(int)numItems) return getItem(index);
 		else throw std::out_of_range("Index ERROR: []");
 	}
 
