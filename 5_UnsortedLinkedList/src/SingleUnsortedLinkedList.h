@@ -57,14 +57,6 @@ private:
 		return tail;
 	}
 
-	void print() {
-		Node* current = head;
-		while (current) {
-			printf("%d, ", current->item);
-			current = current->next;
-		}
-		printf("\n");
-	}
 
 	void copyList(const SingleUnsortedLinkedList& other) {
 		Node* dest = nullptr;
@@ -158,6 +150,20 @@ public:
 		return *this;
 	}
 
+	void print() {
+		printf("DEBUGGING PRINT\n");
+		printf("numItems: %d\n", numItems);
+		printf("head: %p\n", head);
+		printf("tail: %p\n", tail);
+		printf("list: ");
+		Node* current = head;
+		while (current) {
+			printf("%d, ", current->item);
+			current = current->next;
+		}
+		printf("\n\n");
+	}
+
 	bool isEmpty() const noexcept {
 		//return !head && !tail;
 		return numItems == 0;
@@ -195,11 +201,15 @@ public:
 
 
 	void pushBack(int item){
+		printf("ptrs: %p, %p\n", head, tail);
+		print();
 		Node *newNode{new Node(item)};
 		if(isEmpty()) head = newNode;
 		else tail->next = newNode;
 		tail = newNode;
 		++numItems;
+		printf("ptrs1: %p, %p\n", head, tail);
+		print();
 	}
 
 
@@ -212,18 +222,25 @@ public:
 		Node* prev = head;
 		Node* current = head->next;
 
-		while (current && current->next == tail) {
+		while (current && current != tail) {
 			prev = current;
 			current = current->next;
 		}
 
+		printf("hello: %p, %p, %d\n", prev, current, ret);
+		print();
 		if (prev != tail) {
+			printf("1\n");
 			removeNode(prev, tail);
 			tail = prev;
 		} else {
+			printf("2\n");
 			removeNode(&dummy, tail);
 			head = tail = nullptr;
 		}
+
+		printf("hello: %p, %p, %d\n", prev, current, ret);
+		print();
 
 		return ret;
 	}
