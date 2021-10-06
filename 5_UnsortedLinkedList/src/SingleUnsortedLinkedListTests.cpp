@@ -12,20 +12,8 @@
 #include "SingleUnsortedLinkedList.h"
 #include <iostream>
 
-TEST(fuckyou, fuckyou)
+TEST(temp, temp)
 {
-	//SingleUnsortedLinkedList list{1, 2, 3};
-	SingleUnsortedLinkedList list{};
-	list.pushBack(1);
-	list.pushBack(2);
-	list.pushBack(4);
-	list.pushBack(3);
-	list.print();
-	std::string output = "";
-	while(!list.isEmpty()) {
-		output += std::to_string(list.popBack())+",";
-		list.print();
-	}
 }
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTest)
@@ -40,12 +28,10 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTe
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushAndPopBackTest)
 {
 	SingleUnsortedLinkedList list;
-	list.print();
 	list.pushBack(3);
 	list.pushBack(5);
 	list.pushBack(7);
 	list.pushBack(3);
-	list.print();
 	ASSERT_EQ(list.size(),4);
 	std::string output = "";
 	while(!list.isEmpty())

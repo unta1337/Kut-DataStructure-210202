@@ -201,15 +201,11 @@ public:
 
 
 	void pushBack(int item){
-		printf("ptrs: %p, %p\n", head, tail);
-		print();
 		Node *newNode{new Node(item)};
 		if(isEmpty()) head = newNode;
 		else tail->next = newNode;
 		tail = newNode;
 		++numItems;
-		printf("ptrs1: %p, %p\n", head, tail);
-		print();
 	}
 
 
@@ -227,20 +223,13 @@ public:
 			current = current->next;
 		}
 
-		printf("hello: %p, %p, %d\n", prev, current, ret);
-		print();
 		if (prev != tail) {
-			printf("1\n");
 			removeNode(prev, tail);
 			tail = prev;
 		} else {
-			printf("2\n");
 			removeNode(&dummy, tail);
 			head = tail = nullptr;
 		}
-
-		printf("hello: %p, %p, %d\n", prev, current, ret);
-		print();
 
 		return ret;
 	}
