@@ -201,11 +201,16 @@ public:
 
 
 	void pushBack(int item){
-		Node *newNode{new Node(item)};
-		if(isEmpty()) head = newNode;
-		else tail->next = newNode;
-		tail = newNode;
-		++numItems;
+		Node* newNode = new Node{item};
+
+		if (isEmpty())
+			head = tail = newNode;
+		else {
+			//head->next = head == tail ? newNode : head;
+			tail = tail->next = newNode;
+		}
+
+		numItems++;
 	}
 
 
@@ -298,15 +303,23 @@ public:
 		Node dummy{-1, head};
 		Node* prev = &dummy;
 		Node* current = prev->next;
+		Node* next = current-> next;
 
-		while (current && current->item == item) {
-			prev = current;
-			current = current->next;
-		}
-
-		if (current) {
+		if (current->item == item) {
+			head = next == nullptr ? nullptr : next;
+			tail = next == nullptr ? nullptr : tail;
 			removeNode(prev, current);
+			return;
+		} else {
+			while (next && next->item != item) {
+				prev = current;
+				current = next;
+				next = next->next;
+			}
 		}
+		removeNode(current, next);
+		if (prev->item == -1)
+			tail = head;
 	}
 
 	void removeAll(int item) noexcept{
