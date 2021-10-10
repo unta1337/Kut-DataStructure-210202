@@ -13,10 +13,12 @@
 
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, listEmptyInitializationTest)
 {
+//	SingleUnsortedLinkedList list{};
+//	list.print();
+//	list.pushFront(1);
+//	list.print();
 	SingleUnsortedLinkedList list{};
-	ASSERT_EQ(list.size(), 0);
-	ASSERT_TRUE(list.isEmpty());
-	ASSERT_FALSE(list.isFull());
+	list.print();
 }
 
 
@@ -69,7 +71,9 @@ TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushAndPopFrontTest)
 TEST(SingleUnsortedLinkedList_Duplicate_WithoutTailV2, PushPopBackFrontTest)
 {
 	SingleUnsortedLinkedList list;
+	list.print();
 	list.pushFront(3);
+	list.print();
 	ASSERT_EQ(list.peekFront(), 3);
 	ASSERT_EQ(list.peekBack(), 3);
 	list.pushFront(5);

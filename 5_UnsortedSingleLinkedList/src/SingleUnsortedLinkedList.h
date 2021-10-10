@@ -1,12 +1,10 @@
-/*
- * @copyright 한국기술교육대학교 컴퓨터공학부 자료구조및실습
- * @version 2021년도 2학기
- * @author 김상진
- * @file SingleUnsortedLinkedList.h
- * 중복 허용, 단일 연결구조를 이용한 비정렬 정수 리스트
- * 두 개의 포인터를 이용하여 popBack, remove 연산 구현
- * head만 유지, dummy 노드 사용, 코드 중복 제거
- */
+// 기관명: 한국기술교육대학교
+// 학년도: 2021 학년도
+// 교과목: 자바프로그래밍
+// 주차: 5 주차
+// 과제명: 단일 연결구조 기반 비정렬 리스트 (tail 포인터 유지)
+// 저자: 2020136018 김성녕
+// 원본: original.h | 저자: 김상진
 
 #ifndef SINGLEUNSORTEDLINKEDLIST_H_
 #define SINGLEUNSORTEDLINKEDLIST_H_
@@ -35,26 +33,38 @@ private:
 	public:
 		explicit ListIterator(Node *p): p{p} {}
 
-		const ListIterator& operator++() noexcept {p = p->next; return *this;}
+		const ListIterator& operator++() noexcept {
+			p = p->next; return *this;
+		}
 
-		ListIterator operator++(int) noexcept {auto retval{*this}; p = p->next; return retval;}
+		ListIterator operator++(int) noexcept {
+			auto retval{*this};
+			p = p->next; return retval;
+		}
 
-		bool operator==(const ListIterator& other) const noexcept {return p == other.p;}
+		bool operator==(const ListIterator& other) const noexcept {
+			return p == other.p;
+		}
 
-		bool operator!=(const ListIterator& other) const noexcept {return p != other.p;}
+		bool operator!=(const ListIterator& other) const noexcept {
+			return p != other.p;
+		}
 
-		U& operator*() noexcept {return p->item;}
+		U& operator*() noexcept {
+			return p->item;
+		}
 	};
 
-	Node* head = nullptr;
-	Node* tail = nullptr;
+//	Node* head = new Node{-1, nullptr};
+//	Node* tail = new Node{-1, nullptr};
+	Node* head = new Node;
+	Node* tail = new Node;
 	size_t numItems = 0;
 
-	// tail을 유지하므로 getTail 함수는 필요 없음.
+	// tail 포인터를 유지하므로 getTail 함수는 필요 없음.
 	Node* getTail() const {
 		return tail;
 	}
-
 
 	void copyList(const SingleUnsortedLinkedList& other) {
 		Node* dest = nullptr;
@@ -80,7 +90,7 @@ private:
 		head = other.head;
 
 		other.numItems = 0;
-		other.head = nullptr;
+		other.head = new Node;
 	}
 
 	int& getItem(int index) const {
@@ -92,7 +102,7 @@ private:
 		return current->item;
 	}
 
-	// 모든 삭제 연산은 이 함수를 통해 수행.
+	// 삭제 연산은 이 함수를 통해 수행.
 	// pop, remove 등 모든 연산이 포함됨.
 	void removeNode(Node* prev, Node* current) {
 		if (!current)
@@ -107,20 +117,10 @@ private:
 public:
 	explicit SingleUnsortedLinkedList() = default;
 
+	// push 메소드가 있으므로 해당 함수를 이용해 리스트를 초기화할 수 있다.
 	explicit SingleUnsortedLinkedList(const std::initializer_list<int>& initList){
-		Node* current = nullptr;
-
 		for(auto item: initList){
-			Node* newNode = new Node{item};
-
-			if(current){
-				current->next = newNode;
-				tail = current = newNode;
-			} else {
-				head = tail = current = newNode;
-			}
-
-			numItems++;
+			pushBack(item);
 		}
 	}
 
@@ -149,42 +149,49 @@ public:
 	}
 
 	void print() {
-		printf("DEBUGGING PRINT\n");
+		printf("[SINGLE UNSORTED LINKED LIST DEBUGGIN LOG]\n");
 		printf("numItems: %d\n", (int)numItems);
 		printf("head: %p\n", head);
+		printf("head->next: %p\n", head->next);
 		printf("tail: %p\n", tail);
+		printf("tail->next: %p\n", tail->next);
 		printf("list: ");
 		Node* current = head;
 		while (current) {
 			printf("%d, ", current->item);
 			current = current->next;
 		}
-		printf("\n\n");
+		printf("\n[========================================]\n");
 	}
 
+	// numItems를 이용해 원소의 개수 추적.
 	bool isEmpty() const noexcept {
-		//return !head && !tail;
 		return numItems == 0;
 	}
 
+	// 확장 가능하므로 항상 false.
 	bool isFull() const noexcept {
 		return false;
 	}
 
+	// isEmpty()와 마찬가지로 numItems를 이용해 원소의 개수 추척.
 	size_t size() const noexcept {
 		return numItems;
 	}
 
+	// removeNode 메소드를 이용해 모든 원소를 제거.
+	// 마지막으로 head와 tail도 제거.
 	void clear() noexcept {
 		Node dummy{-1, head};
 		Node* current = head;
 
 		while (current) {
+			// removeNode 메소드에 의해 dummy의 next 요소가 current의 다음 요소로 바뀜.
 			removeNode(&dummy, current);
 			current = dummy.next;
 		}
 
-		head = tail = dummy.next;
+		head = tail = new Node;
 	}
 
 	int operator[](int index) const{
@@ -201,12 +208,12 @@ public:
 	void pushBack(int item){
 		Node* newNode = new Node{item};
 
-		if (isEmpty())
+		if (isEmpty()) {
 			head = tail = newNode;
-		else {
-			//head->next = head == tail ? newNode : head;
-			tail = tail->next = newNode;
+			tail->next = nullptr;
 		}
+		else
+			tail = tail->next = newNode;
 
 		numItems++;
 	}
@@ -231,19 +238,18 @@ public:
 			tail = prev;
 		} else {
 			removeNode(&dummy, tail);
-			head = tail = nullptr;
+			head = tail = new Node;
 		}
 
 		return ret;
 	}
 
 	void pushFront(int item) {
-		Node* newNode = new Node{item};
-		newNode->next = head;
+		Node* newNode = new Node{item, head};
 
 		head = newNode;
-		if (tail == nullptr)
-			tail = head;
+		if (numItems == 0)
+			head->next = tail;
 
 		numItems++;
 	}
@@ -253,12 +259,11 @@ public:
 
 		int ret = head->item;
 
-		tail = head == tail ? nullptr : tail;
-		Node* next = tail == nullptr ? nullptr : head->next;
-
 		Node dummy{-1, head};
 		removeNode(&dummy, head);
-		head = next;
+		head = dummy.next;
+		if (!tail)
+			tail = head;
 
 		return ret;
 	}
@@ -277,7 +282,7 @@ public:
 
 	Node* find(int item) const noexcept{
 		if(isEmpty())
-			return nullptr;
+			return new Node;
 
 		Node dummy{-1, head};
 		Node* prev = &dummy;
@@ -291,33 +296,51 @@ public:
 			current = current->next;
 		}
 
-		return nullptr;
+		return new Node;
 	}
 
 	void removeFirst(int item) noexcept{
 		if (isEmpty())
 			return;
 
+//		// 다른 메소드와는 다르게 이 메소드는 [
+//		Node dummy{-1, head};
+//		Node* prev = &dummy;
+//		Node* current = prev->next;
+//		Node* next = current-> next;
+//
+//		if (current->item == item) {
+//			head = next == nullptr ? nullptr : next;
+//			tail = next == nullptr ? nullptr : tail;
+//			removeNode(prev, current);
+//			return;
+//		} else {
+//			while (next && next->item != item) {
+//				prev = current;
+//				current = next;
+//				next = next->next;
+//			}
+//		}
+//		removeNode(current, next);
+//		if (prev->item == -1)
+//			tail = head;
+
 		Node dummy{-1, head};
 		Node* prev = &dummy;
 		Node* current = prev->next;
-		Node* next = current-> next;
 
 		if (current->item == item) {
-			head = next == nullptr ? nullptr : next;
-			tail = next == nullptr ? nullptr : tail;
 			removeNode(prev, current);
+			head = prev->next;
+			tail = head ? tail : head;
 			return;
 		} else {
-			while (next && next->item != item) {
+			while (current->item != item) {
 				prev = current;
-				current = next;
-				next = next->next;
+				current = current->next;
 			}
 		}
-		removeNode(current, next);
-		if (prev->item == -1)
-			tail = head;
+		removeNode(prev, current);
 	}
 
 	void removeAll(int item) noexcept{
