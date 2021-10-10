@@ -219,18 +219,18 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, Big5)
 	DoubleUnsortedLinkedList list3;
 	DoubleUnsortedLinkedList list4(list2);
 	// copy constructor test
-	for(int i=0; i<list2.size(); i++)
+	for(size_t i=0; i<list2.size(); i++)
 		ASSERT_EQ(list2[i], list4[i]);
 	list3 = list1;
 	// copy assignment test
-	for(int i=0; i<list1.size(); i++)
+	for(size_t i=0; i<list1.size(); i++)
 		ASSERT_EQ(list1[i], list3[i]);
 	// move constructor test
 	DoubleUnsortedLinkedList list5(std::move(list3));
-	for(int i=0; i<list5.size(); i++)
+	for(size_t i=0; i<list5.size(); i++)
 		ASSERT_EQ(list5[i], list1[i]);
 	// move assignment test
 	list3 = std::move(list4);
-	for(int i=0; i<list3.size(); i++)
+	for(size_t i=0; i<list3.size(); i++)
 		ASSERT_EQ(list3[i], list2[i]);
 }
