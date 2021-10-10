@@ -2,7 +2,7 @@
  * @copyright 한국기술교육대학교 컴퓨터공학부 자료구조및실습
  * @version 2021년도 2학기
  * @author 김상진
- * @file DoubleUnsortedLinkedList.h
+ * @file original.h
  * 중복 허용, 이중 연결구조를 이용한 비정렬 정수 리스트
  * head, tail 유지, dummy 노드 사용, 코드 중복 제거
  */

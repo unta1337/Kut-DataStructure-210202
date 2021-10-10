@@ -2,28 +2,27 @@
  * @copyright 한국기술교육대학교 컴퓨터공학부 자료구조및실습
  * @version 2021년도 2학기
  * @author 김상진
- * @file SingleUnsortedLinkedListTests.cpp
+ * @file SortedDoubleLinkedListTest.cpp
  * 테스트 프로그램
  */
 
 #include <string>
 #include "gtest/gtest.h"
 
-#include "DoubleUnsortedLinkedList.h"
+#include "DoubleSortedLinkedList.h"
 
-
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, listEmptyInitializationTest)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, listEmptyInitializationTest)
 {
-	DoubleUnsortedLinkedList list{};
+	SortedDoubleLinkedList list{};
 	ASSERT_EQ(list.size(), 0);
 	ASSERT_TRUE(list.isEmpty());
 	ASSERT_FALSE(list.isFull());
 }
 
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopBackTest)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopBackTest)
 {
-	DoubleUnsortedLinkedList list;
+	SortedDoubleLinkedList list;
 	list.pushBack(3);
 	list.pushBack(5);
 	list.pushBack(7);
@@ -35,9 +34,9 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopBackTest)
 	ASSERT_EQ(output,"3,7,5,3,");
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopBackTest_EXTRA)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopBackTest_EXTRA)
 {
-	DoubleUnsortedLinkedList list;
+	SortedDoubleLinkedList list;
 	ASSERT_THROW(list.popBack(), std::runtime_error);
 	list.pushBack(1);
 	list.pushBack(2);
@@ -51,9 +50,9 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopBackTest_EXTRA)
 	list.pushBack(2);
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopFrontTest)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopFrontTest)
 {
-	DoubleUnsortedLinkedList list;
+	SortedDoubleLinkedList list;
 	ASSERT_THROW(list.popFront(), std::runtime_error);
 	list.pushFront(3);
 	list.pushFront(5);
@@ -67,9 +66,9 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushAndPopFrontTest)
 	ASSERT_EQ(output,"7,3,7,5,3,");
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushPopBackFrontTest)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushPopBackFrontTest)
 {
-	DoubleUnsortedLinkedList list;
+	SortedDoubleLinkedList list;
 	list.pushFront(3);
 	ASSERT_EQ(list.peekFront(), 3);
 	ASSERT_EQ(list.peekBack(), 3);
@@ -88,24 +87,24 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, PushPopBackFrontTest)
 	ASSERT_EQ(output,"7,5,3,1,2,");
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, listInitializationTest)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, listInitializationTest)
 {
-	DoubleUnsortedLinkedList list1{3,5,7};
+	SortedDoubleLinkedList list1{3,5,7};
 	list1.pushBack(9);
 	std::string output = "";
 	while(!list1.isEmpty())
 		output += std::to_string(list1.popFront())+",";
 	ASSERT_EQ(output,"3,5,7,9,");
 
-	DoubleUnsortedLinkedList list2{1,2,3,4,5,6,7,8,9,10,11,12};
+	SortedDoubleLinkedList list2{1,2,3,4,5,6,7,8,9,10,11,12};
 	output = "";
 	while(!list2.isEmpty())
 		output += std::to_string(list2.popFront())+",";
 	ASSERT_EQ(output,"1,2,3,4,5,6,7,8,9,10,11,12,");
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, findTest){
-	DoubleUnsortedLinkedList list{3,3,5,7,9};
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, findTest){
+	SortedDoubleLinkedList list{3,3,5,7,9};
 	ASSERT_TRUE(list.find(3));
 	ASSERT_TRUE(list.find(5));
 	ASSERT_TRUE(list.find(7));
@@ -115,8 +114,8 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, findTest){
 	ASSERT_FALSE(list.find(11));
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, removeFirstTest){
-	DoubleUnsortedLinkedList list;
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, removeFirstTest){
+	SortedDoubleLinkedList list;
 	list.pushBack(3);
 	list.pushBack(5);
 	list.pushBack(7);
@@ -134,8 +133,8 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, removeFirstTest){
 	ASSERT_TRUE(list.isEmpty());
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, removeAllTest){
-	DoubleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, removeAllTest){
+	SortedDoubleLinkedList list{1,3,1,1,3,4,5,4,4,6};
 	list.removeAll(3);
 	ASSERT_EQ(list.size(),8);
 	std::string output = "";
@@ -161,8 +160,8 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, removeAllTest){
 	ASSERT_TRUE(list.isEmpty());
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, iteratorTest){
-	DoubleUnsortedLinkedList list;
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, iteratorTest){
+	SortedDoubleLinkedList list;
 	list.pushBack(3);
 	list.pushBack(5);
 	list.pushBack(7);
@@ -181,8 +180,8 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, iteratorTest){
 	ASSERT_EQ(output,"0,5,7,");
 }
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, IndexOperator){
-	DoubleUnsortedLinkedList list;
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, IndexOperator){
+	SortedDoubleLinkedList list;
 	list.pushBack(3);
 	list.pushBack(5);
 	ASSERT_EQ(list[1], 5);
@@ -198,8 +197,8 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, IndexOperator){
 }
 
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, clearTest){
-	DoubleUnsortedLinkedList list{1,3,1,1,3,4,5,4,4,6};
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, clearTest){
+	SortedDoubleLinkedList list{1,3,1,1,3,4,5,4,4,6};
 	list.clear();
 	ASSERT_TRUE(list.isEmpty());
 	list.pushBack(4);
@@ -212,12 +211,12 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, clearTest){
 }
 
 
-TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, Big5)
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, Big5)
 {
-	DoubleUnsortedLinkedList list1{1,2,3,4,5};
-	DoubleUnsortedLinkedList list2{6,7,8,9,10};
-	DoubleUnsortedLinkedList list3;
-	DoubleUnsortedLinkedList list4(list2);
+	SortedDoubleLinkedList list1{1,2,3,4,5};
+	SortedDoubleLinkedList list2{6,7,8,9,10};
+	SortedDoubleLinkedList list3;
+	SortedDoubleLinkedList list4(list2);
 	// copy constructor test
 	for(size_t i=0; i<list2.size(); i++)
 		ASSERT_EQ(list2[i], list4[i]);
@@ -226,7 +225,7 @@ TEST(DoubleUnsortedLinkedList_Duplicate_WithTail, Big5)
 	for(size_t i=0; i<list1.size(); i++)
 		ASSERT_EQ(list1[i], list3[i]);
 	// move constructor test
-	DoubleUnsortedLinkedList list5(std::move(list3));
+	SortedDoubleLinkedList list5(std::move(list3));
 	for(size_t i=0; i<list5.size(); i++)
 		ASSERT_EQ(list5[i], list1[i]);
 	// move assignment test

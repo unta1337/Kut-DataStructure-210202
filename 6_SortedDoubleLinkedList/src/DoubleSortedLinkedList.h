@@ -6,8 +6,8 @@
 // 저자: 2020136018 김성녕
 // 원본: original.h | 저자: 김상진
 
-#ifndef DOUBLEUNSORTEDLINKEDLIST_H_
-#define DOUBLEUNSORTEDLINKEDLIST_H_
+#ifndef SORTEDDOUBLELINKEDLIST_H_
+#define SORTEDDOUBLELINKEDLIST_H_
 #include <cstddef>
 #include <algorithm>
 #include <stdexcept>
@@ -15,7 +15,7 @@
 #include <initializer_list>
 #include <iostream>
 
-class DoubleUnsortedLinkedList {
+class SortedDoubleLinkedList {
 private:
 	struct Node {
 		int item = 0;
@@ -64,12 +64,12 @@ private:
 	size_t numItems = 0;
 
 	// pushBack 메소드를 이용하여 코드의 중복을 줄일 수 있음.
-	void copyList(const DoubleUnsortedLinkedList& other) {
+	void copyList(const SortedDoubleLinkedList& other) {
 		for (Node* otherCurrent = other.head; otherCurrent; otherCurrent = otherCurrent->next)
 			pushBack(otherCurrent->item);
 	}
 
-	void moveList(DoubleUnsortedLinkedList& other) {
+	void moveList(SortedDoubleLinkedList& other) {
 		numItems = other.numItems;
 		head = other.head;
 		tail = other.tail;
@@ -110,7 +110,7 @@ private:
 	}
 
 	void printList() {
-		std::cout << "[DoubleUnsortedLinkedList 디버깅 출력]" << std::endl;
+		std::cout << "[SortedDoubleLinkedList 디버깅 출력]" << std::endl;
 		std::cout << "numItems: " << numItems << std::endl;
 
 		int index = 0;
@@ -126,33 +126,33 @@ private:
 	}
 
 public:
-	explicit DoubleUnsortedLinkedList() = default;
+	explicit SortedDoubleLinkedList() = default;
 
-	explicit DoubleUnsortedLinkedList(const std::initializer_list<int>& initList){
+	explicit SortedDoubleLinkedList(const std::initializer_list<int>& initList){
 		// pushBack 메소드를 이용하여 코드의 중복을 줄일 수 있음.
 		for (auto item : initList)
 			pushBack(item);
 	}
 
-	virtual ~DoubleUnsortedLinkedList() {
+	virtual ~SortedDoubleLinkedList() {
 		clear();
 	}
 
-	DoubleUnsortedLinkedList(const DoubleUnsortedLinkedList& other) {
+	SortedDoubleLinkedList(const SortedDoubleLinkedList& other) {
 		copyList(other);
 	}
 
-	DoubleUnsortedLinkedList(DoubleUnsortedLinkedList&& other) {
+	SortedDoubleLinkedList(SortedDoubleLinkedList&& other) {
 		moveList(other);
 	}
 
-	const DoubleUnsortedLinkedList& operator=(const DoubleUnsortedLinkedList& other) {
+	const SortedDoubleLinkedList& operator=(const SortedDoubleLinkedList& other) {
 		clear();
 		copyList(other);
 		return *this;
 	}
 
-	const DoubleUnsortedLinkedList& operator=(DoubleUnsortedLinkedList&& other) {
+	const SortedDoubleLinkedList& operator=(SortedDoubleLinkedList&& other) {
 		clear();
 		moveList(other);
 		return *this;
@@ -322,4 +322,4 @@ public:
 	}
 };
 
-#endif /* DOUBLEUNSORTEDLINKEDLIST_H_ */
+#endif /* SORTEDDOUBLELINKEDLIST_H_ */
