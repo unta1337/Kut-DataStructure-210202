@@ -88,9 +88,7 @@ private:
 	}
 
 	int& getItem(int index) const {
-		Node* node = getNode(index);
-
-		return node->item;
+		return getNode(index)->item;
 	}
 
 	// 모든 삭제 연산은 removeNode 메소드를 통해 이뤄짐.
@@ -284,7 +282,7 @@ public:
 	// 비정렬 리스트일 때 구현한 메소드로, 정렬 리스트일 때는 굳이 필요하지 않음.
 	// 단, 본 메소드에 의존성을 갖는 find 메소드는 정렬 여부에 관계 없이 특정 노드에서부터 수행할 수 있으므로 사용은 가능함.
 	Node* findWithStartingNode(Node* start, int item) const noexcept {
-		if(isEmpty() || start == nullptr)
+		if(isEmpty())
 			return nullptr;
 
 		Node* current = start;
@@ -298,7 +296,7 @@ public:
 	// 기존의 bool 반환이 아닌, 해당 노드를 반환함으로써 코드 중복을 줄이고 효율을 높일 수 있음.
 	// 비정렬 리스트일 때 구현한 메소드로, findWithStartingNode 메소드를 통해 구현되었지만, 이 둘을 통합해도 됨.
 	Node* find(int item) const noexcept {
-		return findWithStartingNode(head, item);
+		return findWithStartingNode(new Node{-1, nullptr, head}, item);			// 더미 도느 활용.
 	}
 
 	// removeNode를 제외한 remove 계열 함수는 원소의 삭제 여부를 bool 타입으로 반환함.
