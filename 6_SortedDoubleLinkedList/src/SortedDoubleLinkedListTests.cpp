@@ -9,7 +9,7 @@
 #include <string>
 #include "gtest/gtest.h"
 
-#include "DoubleSortedLinkedList.h"
+#include "SortedDoubleLinkedList.h"
 
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, listEmptyInitializationTest)
 {
@@ -229,4 +229,22 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, Big5)
 	list3 = std::move(list4);
 	for(size_t i=0; i<list3.size(); i++)
 		ASSERT_EQ(list3[i], list2[i]);
+}
+
+TEST(SortedDoubleLinkedList_Duplicate_WithTail, removeRange)
+{
+	SortedDoubleLinkedList list{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	ASSERT_THROW(list.removeRange(-1, 10), std::out_of_range);
+	ASSERT_THROW(list.removeRange(0, 11), std::out_of_range);
+	ASSERT_THROW(list.removeRange(-1, 11), std::out_of_range);
+	list.removeRange(3, 5);
+	ASSERT_EQ(list.size(), 8);
+	list.removeRange(0, 2);
+	ASSERT_EQ(list.size(), 6);
+	list.removeRange(list.size() - 4, list.size());
+	ASSERT_EQ(list.size(), 2);
+	std::string output = "";
+	for(auto i: list)
+		output += std::to_string(i)+",";
+	ASSERT_EQ(output,"3,6,");
 }

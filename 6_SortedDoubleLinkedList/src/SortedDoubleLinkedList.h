@@ -78,13 +78,19 @@ private:
 		other.numItems = 0;
 	}
 
-	int& getItem(int index) const {
+	Node* getNode(int index) const {
 		Node* current = head;
 
 		for (int i = 0; i < index; i++)
 			current = current->next;
 
-		return current->item;
+		return current;
+	}
+
+	int& getItem(int index) const {
+		Node* node = getNode(index);
+
+		return node->item;
 	}
 
 	// 모든 삭제 연산은 removeNode 메소드를 통해 이뤄짐.
@@ -307,6 +313,7 @@ public:
 		return true;
 	}
 
+	// 정렬 리스트이므로 한번 item을 찾으면 item의 값이 동일한 노드를 연속적으로 제거할 수 있음.
 	bool removeAll(int item) noexcept {
 		Node* current = find(item);
 
@@ -314,6 +321,20 @@ public:
 			return false;
 
 		while (current && current->item == item) {
+			Node* deleteNode = current;
+			current = current->next;
+			removeNode(deleteNode);
+		}
+
+		return true;
+	}
+
+	bool removeRange(int first, int last) {
+		if (!(0 <= first && first <= last && last <= (int)numItems))
+			throw std::out_of_range("removeRange: out of range");
+
+		Node* current = getNode(first);
+		for (int i = first; i < last; i++) {
 			Node* deleteNode = current;
 			current = current->next;
 			removeNode(deleteNode);
