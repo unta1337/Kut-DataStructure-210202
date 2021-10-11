@@ -111,6 +111,7 @@ private:
 
 	// 모든 push 연산은 insertItem 메소드를 통해 수행됨.
 	// prev와 next에 대해서 모두 예외를 고려하므로 !prev && !next인 상황인 리스트가 빈 경우는 따로 고려하지 않아도 됨.
+	// 본 메소드에서 유효성 검사 및 numItems 변수를 관리하므로, 원소 삭제 시 해당 관련 내용을 신경쓰지 않아도 됨.
 	void insertItem(Node* prev, Node* next, int item) {
 		Node* newNode = new Node{item, prev, next};
 
@@ -274,6 +275,8 @@ public:
 	}
 
 	// removeAll 메소드에서 코드의 중복을 줄이고 효율을 높이기 위한 메소드.
+	// 비정렬 리스트일 때 구현한 메소드로, 정렬 리스트일 때는 굳이 필요하지 않음.
+	// 단, 본 메소드에 의존성을 갖는 find 메소드는 정렬 여부에 관계 없이 특정 노드에서부터 수행할 수 있으므로 사용은 가능함.
 	Node* findWithStartingNode(Node* start, int item) const noexcept {
 		if(isEmpty() || start == nullptr)
 			return nullptr;
@@ -287,6 +290,7 @@ public:
 	}
 
 	// 기존의 bool 반환이 아닌, 해당 노드를 반환함으로써 코드 중복을 줄이고 효율을 높일 수 있음.
+	// 비정렬 리스트일 때 구현한 메소드로, findWithStartingNode 메소드를 통해 구현되었지만, 이 둘을 통합해도 됨.
 	Node* find(int item) const noexcept {
 		return findWithStartingNode(head, item);
 	}
@@ -309,8 +313,9 @@ public:
 		if (!current)
 			return false;
 
-		for ( ; current; current = findWithStartingNode(current->next, item)) {
+		while (current && current->item == item) {
 			Node* deleteNode = current;
+			current = current->next;
 			removeNode(deleteNode);
 		}
 
