@@ -78,6 +78,7 @@ private:
 		other.numItems = 0;
 	}
 
+	// getItem이 아닌 getNode 메소드를 구현함으로써 getItem 및 removeRange에서 사용할 수 있음.
 	Node* getNode(int index) const {
 		Node* current = head;
 
@@ -87,6 +88,7 @@ private:
 		return current;
 	}
 
+	// getNode를 통해 구현.
 	int& getItem(int index) const {
 		return getNode(index)->item;
 	}
@@ -327,6 +329,7 @@ public:
 		return true;
 	}
 
+	// getNode를 통해 구현.
 	bool removeRange(int first, int last) {
 		if (!(0 <= first && first <= last && last <= (int)numItems))
 			throw std::out_of_range("removeRange: out of range");
