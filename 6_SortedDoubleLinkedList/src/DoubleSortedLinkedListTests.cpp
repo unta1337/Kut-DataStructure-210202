@@ -19,7 +19,6 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, listEmptyInitializationTest)
 	ASSERT_FALSE(list.isFull());
 }
 
-
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopBackTest)
 {
 	SortedDoubleLinkedList list;
@@ -31,7 +30,7 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopBackTest)
 	std::string output = "";
 	while(!list.isEmpty())
 		output += std::to_string(list.popBack())+",";
-	ASSERT_EQ(output,"3,7,5,3,");
+	ASSERT_EQ(output,"7,5,3,3,");
 }
 
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopBackTest_EXTRA)
@@ -63,7 +62,7 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushAndPopFrontTest)
 	std::string output = "";
 	while(!list.isEmpty())
 		output += std::to_string(list.popFront())+",";
-	ASSERT_EQ(output,"7,3,7,5,3,");
+	ASSERT_EQ(output,"3,3,5,7,7,");
 }
 
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushPopBackFrontTest)
@@ -74,17 +73,17 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, PushPopBackFrontTest)
 	ASSERT_EQ(list.peekBack(), 3);
 	list.pushFront(5);
 	list.pushFront(7);
-	ASSERT_EQ(list.peekFront(), 7);
-	ASSERT_EQ(list.peekBack(), 3);
+	ASSERT_EQ(list.peekFront(), 3);
+	ASSERT_EQ(list.peekBack(), 7);
 	list.pushBack(1);
-	list.pushBack(2); // 7 5 3 1 2
-	ASSERT_EQ(list.peekFront(), 7);
-	ASSERT_EQ(list.peekBack(), 2);
+	list.pushBack(2); // 1 2 3 5 7
+	ASSERT_EQ(list.peekFront(), 1);
+	ASSERT_EQ(list.peekBack(), 7);
 	ASSERT_EQ(list.size(),5);
 	std::string output = "";
 	while(!list.isEmpty())
 		output += std::to_string(list.popFront())+",";
-	ASSERT_EQ(output,"7,5,3,1,2,");
+	ASSERT_EQ(output,"1,2,3,5,7,");
 }
 
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, listInitializationTest)
@@ -140,13 +139,13 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, removeAllTest){
 	std::string output = "";
 	for(auto i: list)
 		output += std::to_string(i)+",";
-	ASSERT_EQ(output,"1,1,1,4,5,4,4,6,");
+	ASSERT_EQ(output,"1,1,1,4,4,4,5,6,");
 	list.removeAll(1);
 	ASSERT_EQ(list.size(),5);
 	output = "";
 	for(auto i: list)
 		output += std::to_string(i)+",";
-	ASSERT_EQ(output,"4,5,4,4,6,");
+	ASSERT_EQ(output,"4,4,4,5,6,");
 	list.removeFirst(5);
 	ASSERT_EQ(list.size(),4);
 	list.removeAll(4);
@@ -196,7 +195,6 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, IndexOperator){
 	ASSERT_EQ(output,"4,5,7,");
 }
 
-
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, clearTest){
 	SortedDoubleLinkedList list{1,3,1,1,3,4,5,4,4,6};
 	list.clear();
@@ -209,7 +207,6 @@ TEST(SortedDoubleLinkedList_Duplicate_WithTail, clearTest){
 	ASSERT_TRUE(list.isEmpty());
 	ASSERT_EQ(list.size(),0);
 }
-
 
 TEST(SortedDoubleLinkedList_Duplicate_WithTail, Big5)
 {

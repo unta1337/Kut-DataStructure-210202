@@ -109,6 +109,26 @@ private:
 		numItems--;
 	}
 
+	// 모든 push 연산은 insertItem 메소드를 통해 수행됨.
+	// prev와 next에 대해서 모두 예외를 고려하므로 !prev && !next인 상황인 리스트가 빈 경우는 따로 고려하지 않아도 됨.
+	void insertItem(Node* prev, Node* next, int item) {
+		Node* newNode = new Node{item, prev, next};
+
+		// prev가 nullptr이면, 즉 삽입 위치가 첫 번째면 head를 newNode로 바꾼다.
+		if (prev)
+			prev->next = newNode;
+		else
+			head = newNode;
+
+		// next가 nullptr이면, 즉 삽입 위치가 마지막 번째면 tail을 newNode로 바꾼다.
+		if (next)
+			next->prev = newNode;
+		else
+			tail = newNode;
+
+		numItems++;
+	}
+
 	void printList() {
 		std::cout << "[SortedDoubleLinkedList 디버깅 출력]" << std::endl;
 		std::cout << "numItems: " << numItems << std::endl;
@@ -191,21 +211,17 @@ public:
 			throw std::out_of_range("Index ERROR: []");
 	}
 
-	// remove 연산과는 다르게 push 연산은 앞에 push하느냐 뒤에 push하느냐가 다른 경우임.
-	// 즉, pushBack과 pushFront 연산이 각각 최소 연산 단위임.
-	// 두 연산 모두 따로 구현이 필요함.
+	// pushBack과 pushFront 연산은 최소 연산 단위인 insertItem을 이용해 구현할 수 있다.
 	void pushBack(int item) {
-		Node* newNode = new Node{item};
+		Node* next = nullptr;
+		Node* current = tail;
 
-		if (isEmpty())
-			head = tail = newNode;
-		else {
-			tail->next = newNode;
-			newNode->prev = tail;
-			tail = newNode;
+		while (current && current->item > item) {
+			next = current;
+			current = current->prev;
 		}
 
-		numItems++;
+		insertItem(current, next, item);
 	}
 
 	// popBack과 popFront 연산은 최소 연산 단위인 removeNode를 이용해 구현할 수 있다.
@@ -220,21 +236,17 @@ public:
 		return ret;
 	}
 
-	// remove 연산과는 다르게 push 연산은 앞에 push하느냐 뒤에 push하느냐가 다른 경우임.
-	// 즉, pushBack과 pushFront 연산이 각각 최소 연산 단위임.
-	// 두 연산 모두 따로 구현이 필요함.
+	// pushBack과 pushFront 연산은 최소 연산 단위인 insertItem을 이용해 구현할 수 있다.
 	void pushFront(int item) {
-		Node* newNode = new Node{item};
+		Node* prev = nullptr;
+		Node* current = head;
 
-		if (isEmpty())
-			head = tail = newNode;
-		else {
-			head->prev = newNode;
-			newNode->next = head;
-			head = newNode;
+		while (current && current->item < item) {
+			prev = current;
+			current = current->next;
 		}
 
-		numItems++;
+		insertItem(prev, current, item);
 	}
 
 	// popBack과 popFront 연산은 최소 연산 단위인 removeNode를 이용해 구현할 수 있다.
