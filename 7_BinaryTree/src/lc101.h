@@ -1,5 +1,6 @@
 // 101: Symmetric Tree
 /*
+ * Determine if the tree is symmetric or not.
  */
 // https://leetcode.com/problems/symmetric-tree/
 
