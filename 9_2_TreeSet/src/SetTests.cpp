@@ -9,8 +9,10 @@
 #include "gtest/gtest.h"
 #include <string>
 #include <set>
+#include <iostream>
 
-TEST(AVL, DISABLED_iteratorTest){
+//TEST(AVL, DISABLED_iteratorTest){
+TEST(AVL, iteratorTest){
 	AVL<std::string> avl;
 	std::vector<std::string> vec;
 	avl.add("apple");
@@ -47,7 +49,8 @@ TEST(AVL, DISABLED_iteratorTest){
 	}
 }
 
-TEST(AVL, DISABLED_removeTest)
+//TEST(AVL, DISABLED_removeTest)
+TEST(AVL, removeTest)
 {
 	AVL<std::string> avl;
 	avl.add("apple");

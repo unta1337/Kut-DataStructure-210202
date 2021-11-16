@@ -1,3 +1,5 @@
+// 2020136018 김성녕
+
 /*
  * @copyright 한국기술교육대학교 컴퓨터공학부 자료구조및실습
  * @version 2021년도 2학기
@@ -47,14 +49,16 @@ public:
 	}
 
 	void add(const T& key){
-		// 완성
+		if (tree.find(key))
+			return;
+
+		tree.add(key);
 	}
 	bool contains(const T& key) const{
-		// 완성
-		return false;
+		return tree.find(key);
 	}
 	void remove(const T& key){
-		// 완성
+		tree.remove(key);
 	}
 
 	void debugPrint(){
@@ -72,21 +76,34 @@ public:
 template <typename T>
 Set<T> operator+(const Set<T>& A, const Set<T>& B){
 	Set<T> set;
-	// 완성
+
+	for (auto e : A)
+		set.add(e);
+
 	return set;
 }
 
 template <typename T>
 Set<T> operator-(const Set<T>& A, const Set<T>& B){
 	Set<T> set;
-	// 완성
+
+	for (auto e : A) {
+		if (!B.contains(e))
+			set.add(e);
+	}
+
 	return set;
 }
 
 template <typename T>
 Set<T> intersection(const Set<T>& A, const Set<T>& B){
 	Set<T> set;
-	// 완성
+
+	for (auto e : A) {
+		if (B.contains(e))
+			set.add(e);
+	}
+
 	return set;
 }
 
