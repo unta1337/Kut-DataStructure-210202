@@ -42,19 +42,18 @@ public:
 	}
 
 	void put(const K& key, const V& value){
-		// 완성
+		tree.put(key, value);
 	}
 
 	bool containsKey(const K& key) const noexcept{
-		// 완성
-		return false;
+		return tree.find(key);
 	}
 	const V& get(const K& key) const{
 		if(isEmpty()) throw std::runtime_error("HashMap: get, empty");
 		return tree.get(key);
 	}
 	void remove(const K& key) noexcept{
-		// 완성
+		tree.remove(key);
 	}
 	std::set<K> getKeySet() const noexcept{
 		std::set<K> set;
